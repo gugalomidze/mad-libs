@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+function StoryMaker() {
+  const storyTopics = [
+    "The weirdest Day at School",
+    "Adventure in the amazon jungle",
+    "Fantasy and Imagination",
+    "The birthday plan",
+    "A rainy day",
+    "The princess",
+    "Cooking show",
+    "A Haunted House Visit",
+    "My Superpower",
+    "The Movie Premiere",
+    "The Day Everything Went Backward",
+  ];
+
+  const topicColors = ["#fe7338", "#2da343", "#203f92", "#ad46b5", "#ec2a2a"];
+
+  const wordTypes = ["verb", "noun", "adjective", "place", "emotion", "name"];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="story-maker">
+      <h1>Mad Libs!</h1>
+
+      <p className="topic-selection">Choose a story</p>
+
+      <div className="topic-list">
+        {storyTopics.map((topic, index) => (
+          <button
+            key={index}
+            style={{ backgroundColor: topicColors[index % 5] }}
+          >
+            {topic}
+          </button>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="divider"></div>
+
+      <div className="word-form">
+        <p>Go Mad! Fill in the blank fields below</p>
+
+        <div className="word-inputs">
+          {wordTypes.map((word, index) => {
+            const article = /^[aeiou]/i.test(word) ? "an" : "a";
+            return (
+              <div className="input-wrapper" key={index}>
+                <input type="text" placeholder={`Enter ${article} ${word}`} />
+                <span>is a required field</span>
+                <div>{word}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <button className="generate-btn">create!</button>
+    </div>
+  );
 }
 
-export default App
+export default StoryMaker;
